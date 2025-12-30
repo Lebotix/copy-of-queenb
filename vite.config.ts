@@ -14,6 +14,7 @@ export default defineConfig(({ mode }) => {
       'process.env.API_KEY': JSON.stringify(env.API_KEY || ''),
       'process.env.VITE_EMAILJS_SERVICE_ID': JSON.stringify(env.VITE_EMAILJS_SERVICE_ID || ''),
       'process.env.VITE_EMAILJS_TEMPLATE_ID': JSON.stringify(env.VITE_EMAILJS_TEMPLATE_ID || ''),
+      'process.env.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID': JSON.stringify(env.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID || ''),
       'process.env.VITE_EMAILJS_PUBLIC_KEY': JSON.stringify(env.VITE_EMAILJS_PUBLIC_KEY || ''),
     },
     build: {

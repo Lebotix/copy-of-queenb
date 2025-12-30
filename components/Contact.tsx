@@ -24,15 +24,6 @@ export const Contact: React.FC = () => {
                                         <span className="font-semibold">Brittany:</span> 308-660-5653
                                     </div>
                                 </button>
-                                <button
-                                    onClick={() => handlePhoneClick('308-520-9321')}
-                                    className="flex items-center gap-3 text-lg hover:text-pink-400 transition-colors text-gray-200"
-                                >
-                                    <Phone className="w-5 h-5" />
-                                    <div>
-                                        <span className="font-semibold">Jamie:</span> 308-520-9321
-                                    </div>
-                                </button>
                             </div>
                         </div>
                         <div>
@@ -48,24 +39,24 @@ export const Contact: React.FC = () => {
                     </div>
                     <div className="border-t border-purple-500/30 pt-8 mt-8 bg-gray-900/50 rounded-lg p-6">
                         <h3 className="text-2xl font-semibold mb-4 text-white text-center">Follow Us</h3>
-                        <div className="flex justify-center gap-6">
+                        <div className="flex justify-center gap-8">
                             <a
                                 href="https://www.facebook.com/Queenbcleaning25"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-purple-500/30"
+                                className="bg-gradient-to-r from-purple-600 to-pink-600 p-4 rounded-full text-white hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-110 shadow-lg shadow-purple-500/30"
+                                aria-label="Facebook"
                             >
-                                <Facebook className="w-6 h-6" />
-                                Facebook
+                                <Facebook className="w-8 h-8" />
                             </a>
                             <a
                                 href="https://instagram.com/queenbscleaning25"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-pink-500/30"
+                                className="bg-gradient-to-r from-pink-600 to-purple-600 p-4 rounded-full text-white hover:from-pink-700 hover:to-purple-700 transition-all transform hover:scale-110 shadow-lg shadow-pink-500/30"
+                                aria-label="Instagram"
                             >
-                                <Instagram className="w-6 h-6" />
-                                Instagram
+                                <Instagram className="w-8 h-8" />
                             </a>
                         </div>
                     </div>
