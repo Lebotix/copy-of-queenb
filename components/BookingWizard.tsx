@@ -98,7 +98,7 @@ export const BookingWizard: React.FC = () => {
     if (success) {
         nextStep(); // Go to success screen
     } else {
-        setSubmitError("There was an issue sending your request. Please try again or call us directly.");
+        setSubmitError("There was an issue sending your request. Please try again later or call us directly.");
     }
   };
 
@@ -353,7 +353,7 @@ export const BookingWizard: React.FC = () => {
             </button>
             <button 
                 onClick={handleSubmitBooking} 
-                disabled={!booking.date || !booking.address || !booking.contactName || isSubmitting}
+                disabled={!booking.date || !booking.address || !booking.contactName || !booking.contactEmail || isSubmitting}
                 className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-bold hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-purple-900/50"
             >
                 {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Request Free Quote <CheckCircle className="h-4 w-4" /></>}

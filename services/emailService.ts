@@ -8,9 +8,16 @@ export const sendBookingNotification = async (booking: BookingDetails) => {
   const autoReplyTemplateId = process.env.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID;
   const publicKey = process.env.VITE_EMAILJS_PUBLIC_KEY;
 
+  // Debug log for production troubleshooting
+  console.log("EmailJS Config Check:", { 
+    hasServiceId: !!serviceId, 
+    hasTemplateId: !!templateId, 
+    hasAutoReplyId: !!autoReplyTemplateId, 
+    hasPublicKey: !!publicKey 
+  });
+
   if (!serviceId || !templateId || !publicKey) {
-    console.error("EmailJS configuration is missing. Please check your .env file.");
-    // Return false to alert the user in the UI that configuration is incomplete
+    console.error("EmailJS configuration is missing. Please check your .env file or Cloudflare environment variables.");
     return false; 
   }
 
@@ -36,18 +43,15 @@ ${booking.instructions || "None provided"}
 
   // Params for the Admin/Business email
   const templateParams = {
-    // Intended recipient - ensure your EmailJS template uses {{to_email}} or is configured to send to this address
     to_email: "busycleaning93@gmail.com",
     to_name: "Queen B's Management",
     
-    // Sender info for Auto-Reply configuration (set 'Reply To' field in EmailJS to {{reply_to}})
     from_name: booking.contactName,
     contact_name: booking.contactName,
     contact_email: booking.contactEmail,
     reply_to: booking.contactEmail,
     contact_phone: booking.contactPhone,
     
-    // structured data for template variables
     service_type: booking.serviceType,
     bedrooms: booking.bedrooms,
     bathrooms: booking.bathrooms,
@@ -56,17 +60,19 @@ ${booking.instructions || "None provided"}
     address: booking.address,
     instructions: booking.instructions,
     
-    // Full formatted message body
     message: detailedMessage
   };
 
   try {
     // 1. Send Admin Notification
     await emailjs.send(serviceId, templateId, templateParams, publicKey);
+    console.log("Admin notification sent successfully.");
 
     // 2. Send Customer Auto-Reply (if configured)
-    if (autoReplyTemplateId) {
-        const customerConfirmationMessage = `
+    // We wrap this in a separate try/catch so failure here doesn't block the booking success state
+    if (autoReplyTemplateId && booking.contactEmail) {
+        try {
+            const customerConfirmationMessage = `
 Dear ${booking.contactName},
 
 Thank you for choosing Queen B's Cleaning! We have received your booking request and are currently reviewing our schedule.
@@ -82,30 +88,33 @@ We will contact you shortly at ${booking.contactPhone} or via email to confirm y
 
 Warm regards,
 The Queen B's Team
-        `.trim();
+            `.trim();
 
-        const autoReplyParams = {
-            to_email: booking.contactEmail,
-            to_name: booking.contactName,
-            from_name: "Queen B's Cleaning",
-            contact_name: "Queen B's Cleaning",
-            reply_to: "busycleaning93@gmail.com",
-            
-            // structured data reuse
-            service_type: booking.serviceType,
-            date: booking.date,
-            time: booking.time,
-            address: booking.address,
-            
-            message: customerConfirmationMessage
-        };
+            const autoReplyParams = {
+                to_email: booking.contactEmail,
+                to_name: booking.contactName,
+                from_name: "Queen B's Cleaning",
+                contact_name: "Queen B's Cleaning",
+                reply_to: "busycleaning93@gmail.com",
+                
+                service_type: booking.serviceType,
+                date: booking.date,
+                time: booking.time,
+                address: booking.address,
+                
+                message: customerConfirmationMessage
+            };
 
-        await emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey);
+            await emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey);
+            console.log("Auto-reply sent successfully.");
+        } catch (autoReplyError) {
+            console.warn("Failed to send auto-reply, but admin notification was sent.", autoReplyError);
+        }
     }
 
     return true;
   } catch (error) {
-    console.error("Failed to send email notification:", error);
+    console.error("Failed to send email notification (Admin):", error);
     return false;
   }
 };
