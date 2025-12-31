@@ -21,12 +21,6 @@ export const Hero: React.FC = () => {
                 <p className="text-4xl md:text-5xl mb-8" style={{ fontFamily: 'Lobster, cursive', color: '#c084fc', textShadow: '3px 3px 0 #1f2937, -1px -1px 0 #1f2937, 1px -1px 0 #1f2937, -1px 1px 0 #1f2937, 0 0 20px rgba(192, 132, 252, 0.5)' }}>
                     You have the grime, We bring the shine!
                 </p>
-                <div className="mb-6">
-                    <p className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Courgette, cursive', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>Insured and Bonded</p>
-                    <p className="text-xl text-white max-w-2xl mx-auto" style={{ fontFamily: 'Courgette, cursive', textShadow: '1px 1px 3px rgba(0,0,0,0.7)' }}>
-                        Your peace of mind is our priority. We carry full liability insurance and bonding to protect your property and give you confidence in our professional service.
-                    </p>
-                </div>
                 <p className="text-xl text-white mb-12" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.7)' }}>
                     <span className="inline-block bg-gray-900 px-6 py-2 rounded-full border border-purple-500/50">
                         Serving North Platte, NE and surrounding areas
